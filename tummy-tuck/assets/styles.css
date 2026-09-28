@@ -702,6 +702,7 @@ button { font: inherit; color: inherit; cursor: pointer; }
   .book-bg::after { background: rgba(10, 39, 72, .45); }
   .footer-grid { grid-template-columns: 1fr; }
   .to-top { right: 16px; bottom: 16px; width: 48px; height: 48px; }
+  .faq-cta { margin: -70px auto 0; width: 86%; text-align: center; }
 }
 
 @media (prefers-reduced-motion: reduce) {
