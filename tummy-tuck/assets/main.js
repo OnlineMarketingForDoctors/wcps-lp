@@ -14,6 +14,11 @@
   };
   onScroll();
   window.addEventListener('scroll', onScroll, { passive: true });
+  document.querySelectorAll('a[href="#top"]').forEach((a) => a.addEventListener('click', (e) => {
+    e.preventDefault();
+    window.scrollTo({ top: 0, behavior: reduced ? 'auto' : 'smooth' });
+    history.replaceState(null, '', location.pathname + location.search);
+  }));
 
   /* ---------- Mobile menu ---------- */
   const nav = document.getElementById('main-nav');
