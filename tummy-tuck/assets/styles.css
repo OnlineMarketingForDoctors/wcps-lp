@@ -621,8 +621,15 @@ button { font: inherit; color: inherit; cursor: pointer; }
   .nav-mobile-cta { display: inline-flex; }
   .nav-mobile-phone { display: block; text-align: center; font-weight: 800; font-size: 1.1rem; color: var(--blue); text-decoration: none; }
 
-  .hero-grid { grid-template-columns: 1fr; }
-  .hero-media { height: 620px; max-width: 560px; width: 100%; margin-inline: auto; }
+  .hero-grid { grid-template-columns: 1fr; gap: 0; }
+  /* Stacked layout: video sits between the headline and the subheadline */
+  .hero-copy { display: contents; }
+  .hero-kicker { order: 0; }
+  .hero h1 { order: 1; }
+  .hero-media { order: 2; height: 620px; max-width: 560px; width: 100%; margin: 36px auto 12px; }
+  .hero-sub { order: 3; }
+  .hero-points { order: 4; }
+  .hero-actions { order: 5; }
   .intro-grid { grid-template-columns: 1fr; }
   .intro-img { max-width: 420px; }
   .intro-visual { max-width: 420px; }
@@ -630,7 +637,7 @@ button { font: inherit; color: inherit; cursor: pointer; }
   .ba-head, .journey-head, .proc-head, .types-head { grid-template-columns: 1fr; gap: 20px; }
   .glance-list { grid-template-columns: repeat(2, 1fr); }
   .concerns-grid { grid-template-columns: 1fr; min-height: 0; }
-  .concerns-img { margin: 0 24px 0 0; aspect-ratio: 4 / 3; }
+  .concerns-img { margin: 56px 24px 0 0; aspect-ratio: 4 / 3; }
   .proc-steps { grid-template-columns: repeat(2, 1fr); padding-right: 0; }
   .sat-proc { display: none; }
   .why-grid, .doctor-grid, .faq-grid, .risks-grid { grid-template-columns: 1fr; }
@@ -657,7 +664,7 @@ button { font: inherit; color: inherit; cursor: pointer; }
   .header-inner { width: calc(100% - 32px); }
   .header-mobile-cta { left: 16px; }
   .hero { padding-top: 28px; }
-  .hero-media { height: 580px; margin-top: 44px; }
+  .hero-media { height: 580px; margin: 28px auto 8px; }
   .hero-video-frame { translate: -50% 0; top: 40px; bottom: 0; height: auto; }
   .sound-toggle { left: auto; right: 12px; bottom: 14px; padding: 8px 14px; }
   .lightbox-close { translate: 0 0; }
@@ -679,7 +686,7 @@ button { font: inherit; color: inherit; cursor: pointer; }
   .why-list li:nth-child(even) { margin: 0; }
   .sat-why { display: none; }
   .cred-list { grid-template-columns: 1fr; }
-  .affil { flex-wrap: wrap; }
+  .affil { flex-wrap: wrap; justify-content: center; }
   .affil img { height: 52px; flex: none; }
   .pricing-card { margin: -60px 8px 0; }
   .suit-img { width: 180px; margin: -84px auto; }
