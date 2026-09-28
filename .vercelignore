@@ -1,0 +1,9 @@
+# Source assets: only the optimised copies under tummy-tuck/assets are published
+.claude
+affiliations logos
+clinic photos
+doctor photos
+types of tummy tuck
+*.png
+*.mp4
+!tummy-tuck/assets/logos/favicon.png
