@@ -500,11 +500,11 @@ button { font: inherit; color: inherit; cursor: pointer; }
 /* ---------- Booking ---------- */
 .book { position: relative; padding: clamp(100px, 12vw, 180px) 0; overflow: hidden; }
 .book-bg { position: absolute; inset: 0; }
-.book-bg img { width: 100%; height: 100%; object-fit: cover; object-position: 75% center; }
-.book-bg::after { content: ""; position: absolute; inset: 0; background: linear-gradient(90deg, rgba(10, 39, 72, .55), rgba(10, 39, 72, .05) 70%); }
+.book-bg img { width: 100%; height: 100%; object-fit: cover; object-position: 20% 45%; }
+.book-bg::after { content: ""; position: absolute; inset: 0; background: linear-gradient(270deg, rgba(10, 39, 72, .55), rgba(10, 39, 72, .05) 70%); }
 .book-grid { position: relative; }
 .book-card {
-  width: min(640px, 100%); background: var(--white); border-radius: var(--r-xl);
+  width: min(640px, 100%); margin-left: auto; background: var(--white); border-radius: var(--r-xl);
   padding: clamp(32px, 4.5vw, 56px); box-shadow: var(--shadow-lift);
 }
 .book-card > p { color: var(--muted); margin: 14px 0 28px; }
