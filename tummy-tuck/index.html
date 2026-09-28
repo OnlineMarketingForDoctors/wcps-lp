@@ -11,7 +11,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400..700;1,6..96,400..600&family=Hanken+Grotesk:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <link rel="preload" as="image" href="/tummy-tuck/assets/video/hero-poster.webp">
-<link rel="stylesheet" href="/tummy-tuck/assets/styles.css?v=8">
+<link rel="stylesheet" href="/tummy-tuck/assets/styles.css?v=9">
 </head>
 <body>
 <div id="top" aria-hidden="true"></div>
@@ -21,7 +21,7 @@
 <header class="site-header">
   <div class="header-inner">
     <a class="brand" href="#top" aria-label="West Coast Plastic Surgery home">
-      <img src="/tummy-tuck/assets/logos/wcps-logo.webp" alt="West Coast Plastic Surgery" width="1200" height="750">
+      <img src="/tummy-tuck/assets/logos/wcps-logo-transparent.webp" alt="West Coast Plastic Surgery" width="1200" height="750">
     </a>
     <a class="btn btn-solid header-mobile-cta" href="#book">Book a consultation</a>
 
@@ -84,7 +84,7 @@
                aria-label="Dr Qadir Khan explains tummy tuck surgery">
           <source src="/tummy-tuck/assets/video/hero.mp4" type="video/mp4">
         </video>
-        <button class="sound-toggle" id="sound-toggle" aria-pressed="false">
+        <button class="sound-toggle" id="sound-toggle" aria-haspopup="dialog" aria-controls="video-lightbox">
           <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9v6h4l5 4V5L8 9H4z"/><path class="wave" d="M16 8.5a5 5 0 0 1 0 7M18.5 6a8.5 8.5 0 0 1 0 12" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
           <span>Watch with sound</span>
         </button>
@@ -630,6 +630,19 @@
 
 </main>
 
+<!-- Video lightbox. Edit the caption text in .lightbox-caption -->
+<dialog class="video-lightbox" id="video-lightbox" aria-label="Dr Qadir Khan explains tummy tuck surgery">
+  <div class="lightbox-inner">
+    <button class="lightbox-close" id="close-video" aria-label="Close video">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg>
+    </button>
+    <video id="lightbox-video" controls playsinline preload="none" poster="/tummy-tuck/assets/video/hero-poster.webp">
+      <source src="/tummy-tuck/assets/video/hero.mp4" type="video/mp4">
+    </video>
+    <p class="lightbox-caption">Dr Qadir Khan talks through what a tummy tuck involves and the results patients can expect.</p>
+  </div>
+</dialog>
+
 <!-- ============ FOOTER ============ -->
 <footer class="site-footer">
   <div class="wrap footer-grid">
@@ -670,6 +683,6 @@
   <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 15l7-7 7 7"/></svg>
 </a>
 
-<script src="/tummy-tuck/assets/main.js?v=7" defer></script>
+<script src="/tummy-tuck/assets/main.js?v=9" defer></script>
 </body>
 </html>

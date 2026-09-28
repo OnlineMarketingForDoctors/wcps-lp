@@ -43,25 +43,25 @@
   }, { rootMargin: '-45% 0px -50% 0px' });
   sections.forEach((s) => navIO.observe(s));
 
-  /* ---------- Hero video sound ---------- */
+  /* ---------- Hero video: "Watch with sound" opens a lightbox ---------- */
   const video = document.getElementById('hero-video');
-  const sound = document.getElementById('sound-toggle');
-  if (video && sound) {
-    if (reduced) { video.removeAttribute('autoplay'); video.pause(); }
-    sound.addEventListener('click', () => {
-      const on = video.muted;
-      video.muted = !on;
-      if (on) { video.currentTime = 0; video.loop = false; video.play(); }
-      else { video.loop = true; }
-      sound.setAttribute('aria-pressed', String(on));
-      sound.querySelector('span').textContent = on ? 'Mute' : 'Watch with sound';
-    });
-    video.addEventListener('ended', () => {
-      video.muted = true; video.loop = true; video.play();
-      sound.setAttribute('aria-pressed', 'false');
-      sound.querySelector('span').textContent = 'Watch with sound';
-    });
-  }
+  if (video && reduced) { video.removeAttribute('autoplay'); video.pause(); }
+  const lightbox = document.getElementById('video-lightbox');
+  const lbVideo = document.getElementById('lightbox-video');
+  const closeVideo = () => { if (lightbox.open) lightbox.close(); };
+  document.getElementById('sound-toggle').addEventListener('click', () => {
+    if (video) video.pause();
+    lightbox.showModal();
+    lbVideo.currentTime = 0;
+    lbVideo.muted = false;
+    lbVideo.play().catch(() => {});
+  });
+  document.getElementById('close-video').addEventListener('click', closeVideo);
+  lightbox.addEventListener('click', (e) => { if (e.target === lightbox) closeVideo(); });
+  lightbox.addEventListener('close', () => {
+    lbVideo.pause();
+    if (video && !reduced) video.play().catch(() => {});
+  });
 
   /* ---------- Reveal on scroll ---------- */
   const revealIO = new IntersectionObserver((entries) => {

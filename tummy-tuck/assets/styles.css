@@ -163,8 +163,27 @@ button { font: inherit; color: inherit; cursor: pointer; }
   box-shadow: var(--shadow-soft); white-space: nowrap;
 }
 .sound-toggle svg { width: 20px; height: 20px; fill: var(--blue); }
-.sound-toggle .wave { stroke: var(--blue); opacity: .35; }
-.sound-toggle[aria-pressed="true"] .wave { opacity: 1; }
+.sound-toggle .wave { stroke: var(--blue); }
+
+.video-lightbox {
+  padding: 0; border: 0; background: transparent; max-width: none; max-height: none;
+  width: 100%; height: 100%; overflow: hidden;
+}
+.video-lightbox::backdrop { background: rgba(10, 39, 72, .88); backdrop-filter: blur(6px); }
+.video-lightbox[open] { display: grid; place-items: center; }
+.lightbox-inner { position: relative; display: flex; flex-direction: column; align-items: center; gap: 16px; padding: 24px; }
+.video-lightbox video {
+  height: min(78vh, 900px); width: auto; max-width: calc(100vw - 48px); aspect-ratio: 9 / 16;
+  object-fit: cover; border-radius: var(--r-lg); background: #000; box-shadow: 0 40px 80px -30px rgba(0, 0, 0, .7);
+}
+.lightbox-caption { margin: 0; max-width: 46ch; text-align: center; color: #fff; font-size: 1rem; line-height: 1.5; }
+.lightbox-close {
+  position: absolute; top: 8px; right: 8px; z-index: 1; translate: 50% 0;
+  width: 48px; height: 48px; border-radius: 50%; border: 0; display: grid; place-items: center;
+  background: #fff; box-shadow: var(--shadow-soft);
+}
+.lightbox-close svg { width: 20px; height: 20px; fill: none; stroke: var(--ink); stroke-width: 2.2; stroke-linecap: round; }
+.video-lightbox[open] .lightbox-inner { animation: pop .4s var(--ease); }
 
 .sat { position: absolute; border-radius: var(--r-lg); overflow: hidden; box-shadow: var(--shadow-lift); border: 6px solid var(--white); background: var(--white); will-change: transform; }
 .sat img { width: 100%; height: 100%; object-fit: cover; }
@@ -637,6 +656,8 @@ button { font: inherit; color: inherit; cursor: pointer; }
   .hero-media { height: 580px; margin-top: 44px; }
   .hero-video-frame { translate: -50% 0; top: 40px; bottom: 0; height: auto; }
   .sound-toggle { left: auto; right: 12px; bottom: 14px; padding: 8px 14px; }
+  .lightbox-close { translate: 0 0; }
+  .video-lightbox video { height: min(72vh, 900px); }
   .sat-hero-a { width: 30%; left: auto; right: -2%; top: 13%; }
   .sat-hero-b { width: 42%; left: -2%; right: auto; bottom: 6%; }
   .hero-badge { width: 176px; top: 0; right: auto; left: -2%; padding: 12px; font-size: .78rem; }
