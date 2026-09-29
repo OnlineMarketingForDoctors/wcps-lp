@@ -224,37 +224,4 @@
   faqs.forEach((d) => d.addEventListener('toggle', () => {
     if (d.open) faqs.forEach((o) => { if (o !== d) o.open = false; });
   }));
-
-  /* ---------- Placeholder booking form ---------- */
-  const form = document.getElementById('book-form');
-  const status = document.getElementById('form-status');
-  const errText = {
-    first_name: 'Enter your first name',
-    last_name: 'Enter your last name',
-    email: 'Enter an email address like name@example.com',
-    phone: 'Enter a phone number we can call you on',
-    source: 'Choose how you heard about us',
-  };
-  const validate = (el) => {
-    const field = el.closest('.field');
-    let msg = field.querySelector('.err');
-    const bad = !el.checkValidity() || (el.type === 'tel' && el.value.replace(/\D/g, '').length < 8);
-    field.classList.toggle('has-error', bad);
-    el.setAttribute('aria-invalid', String(bad));
-    if (bad) {
-      if (!msg) { msg = document.createElement('span'); msg.className = 'err'; msg.id = el.id + '-err'; field.appendChild(msg); }
-      msg.textContent = errText[el.name] || 'Check this field';
-      el.setAttribute('aria-describedby', msg.id);
-    } else if (msg) { msg.remove(); el.removeAttribute('aria-describedby'); }
-    return !bad;
-  };
-  form.querySelectorAll('[required]').forEach((el) => el.addEventListener('blur', () => validate(el)));
-  form.addEventListener('submit', (e) => {
-    e.preventDefault();
-    const fields = [...form.querySelectorAll('[required]')];
-    const ok = fields.map(validate).every(Boolean);
-    if (!ok) { status.textContent = ''; fields.find((f) => f.getAttribute('aria-invalid') === 'true').focus(); return; }
-    // Placeholder form: nothing is sent yet. The real embed should redirect to /thank-you/ on success.
-    window.location.href = '/thank-you/';
-  });
 })();

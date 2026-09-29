@@ -532,6 +532,8 @@ button { font: inherit; color: inherit; cursor: pointer; }
   padding: clamp(32px, 4.5vw, 56px); box-shadow: var(--shadow-lift);
 }
 .book-card > p { color: var(--muted); margin: 14px 0 28px; }
+.form-embed { min-height: 637px; margin: 0 -8px; }
+.form-embed iframe { display: block; width: 100%; min-height: 637px; }
 .book-form { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
 .field { display: grid; gap: 6px; }
 .field-full { grid-column: 1 / -1; }
