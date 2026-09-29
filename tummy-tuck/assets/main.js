@@ -254,7 +254,7 @@
     const fields = [...form.querySelectorAll('[required]')];
     const ok = fields.map(validate).every(Boolean);
     if (!ok) { status.textContent = ''; fields.find((f) => f.getAttribute('aria-invalid') === 'true').focus(); return; }
-    status.textContent = 'Thank you. Your request has been received and our team will call you within one business day.';
-    form.reset();
+    // Placeholder form: nothing is sent yet. The real embed should redirect to /thank-you/ on success.
+    window.location.href = '/thank-you/';
   });
 })();
