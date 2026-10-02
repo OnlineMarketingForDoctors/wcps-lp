@@ -141,6 +141,13 @@ button { font: inherit; color: inherit; cursor: pointer; }
 .hero-grid { position: relative; display: grid; grid-template-columns: 1fr 1fr; gap: clamp(32px, 5vw, 80px); align-items: center; }
 .hero-kicker { font-weight: 700; color: var(--blue); margin-bottom: 18px; font-size: 1rem; }
 .hero h1 { font-size: clamp(2.5rem, 4.6vw, 4.1rem); line-height: 1; }
+.hero-price {
+  display: inline-flex; align-items: baseline; flex-wrap: wrap; gap: 6px; margin: 20px 0 0;
+  padding: 10px 18px; border-radius: 999px; background: var(--white); box-shadow: var(--shadow-soft);
+  font-weight: 600; font-size: 1.05rem;
+}
+.hero-price strong { font-family: var(--serif); font-weight: 600; font-size: 1.45rem; color: var(--blue); line-height: 1; }
+.hero-price span { font-size: .85rem; font-weight: 500; color: var(--muted); }
 .hero-sub { font-size: 1.15rem; color: var(--muted); margin: 20px 0 24px; max-width: 46ch; }
 .hero-points { list-style: none; display: grid; gap: 10px; margin-bottom: 30px; }
 .hero-points li { position: relative; padding-left: 36px; font-weight: 600; }
@@ -209,6 +216,7 @@ button { font: inherit; color: inherit; cursor: pointer; }
 .is-loaded .hero-copy > :nth-child(3) { animation-delay: .16s; }
 .is-loaded .hero-copy > :nth-child(4) { animation-delay: .24s; }
 .is-loaded .hero-copy > :nth-child(5) { animation-delay: .32s; }
+.is-loaded .hero-copy > :nth-child(6) { animation-delay: .4s; }
 .is-loaded .hero-video-frame { animation: reveal-up 1.2s var(--ease) .1s forwards; }
 .is-loaded .hero .sat-hero-a { animation: pop .9s var(--ease) .55s forwards; }
 .is-loaded .hero .sat-hero-b { animation: pop .9s var(--ease) .7s forwards; }
@@ -396,6 +404,7 @@ button { font: inherit; color: inherit; cursor: pointer; }
 .price-rows { margin: 24px 0 0; }
 .price-rows div { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 4px 16px; padding: 14px 0; border-bottom: 1px solid rgba(10, 39, 72, .12); }
 .price-rows dt { font-weight: 600; }
+.pricing-card .fine-print + .fine-print { margin-top: 10px; }
 .price-rows dd { margin: 0; font-family: var(--serif); font-size: 1.3rem; color: var(--blue); white-space: nowrap; }
 .pricing-card .btn { margin-top: 24px; }
 
@@ -680,6 +689,7 @@ button { font: inherit; color: inherit; cursor: pointer; }
   .hero-copy { display: contents; }
   .hero-kicker { order: 0; }
   .hero h1 { order: 1; }
+  .hero-price { order: 1; justify-self: start; }
   .hero-media { order: 2; height: 620px; max-width: 560px; width: 100%; margin: 36px auto 12px; }
   .hero-sub { order: 3; }
   .hero-points { order: 4; }
@@ -727,6 +737,9 @@ button { font: inherit; color: inherit; cursor: pointer; }
   .sat-hero-b { width: 42%; left: -2%; right: auto; bottom: 6%; }
   .hero-badge { width: 176px; top: 0; right: auto; left: -2%; padding: 12px; font-size: .78rem; }
   .hero-points li { font-weight: 500; }
+  .hero-price { padding: 8px 14px; font-size: .92rem; gap: 5px; margin-top: 16px; }
+  .hero-price strong { font-size: 1.22rem; }
+  .hero-price span { font-size: .78rem; }
   .intro-card { width: 230px; }
   .ba-track { grid-auto-columns: 100%; }
   .ba-nav { justify-content: flex-start; }
