@@ -19,10 +19,10 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400..700;1,6..96,400..600&family=Hanken+Grotesk:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <link rel="preload" as="image" href="/tummy-tuck/assets/video/hero-poster.webp">
 <link rel="stylesheet" href="/tummy-tuck/assets/styles.css?v=19">
-<link href="https://assets.calendly.com/assets/external/widget.css" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Qwitcher+Grypen:wght@400&display=swap" rel="stylesheet">
 <style>
   /* Fixed Contact Us tab: scrolls to the enquiry form. Sits under the header,
-     back-to-top button and the Calendly popup (z-index 9999+). */
+     back-to-top button and the discovery call popup. */
   .contact-tab {
     position: fixed; right: 0; top: 50%; z-index: 80;
     transform: translateY(-50%) rotate(180deg); writing-mode: vertical-rl;
@@ -35,6 +35,41 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   .contact-tab:hover { background: var(--blue-deep); padding-right: 15px; }
   .contact-tab:focus-visible { outline-color: #fff; outline-offset: -5px; }
   @media (max-width: 720px) { .contact-tab { padding: 14px 9px; font-size: .7rem; } }
+
+  /* Discovery call popup (Calendly inline widget). Above the header, back-to-top and Contact Us tab. */
+  .dc-modal { position: fixed; inset: 0; z-index: 10000; display: none; align-items: center; justify-content: center; padding: 24px; }
+  .dc-modal.is-open { display: flex; }
+  .dc-overlay { position: absolute; inset: 0; background: rgba(0, 0, 0, .8); }
+  .dc-panel {
+    position: relative; width: min(640px, 100%); max-height: calc(100dvh - 48px); overflow-y: auto;
+    -webkit-overflow-scrolling: touch; overscroll-behavior: contain;
+    background: #fff; border-radius: 12px; padding: 44px 24px 16px; text-align: center;
+    box-shadow: 0 30px 80px -20px rgba(0, 0, 0, .6);
+  }
+  .dc-title { font-family: "Qwitcher Grypen", cursive; font-size: 80px; font-weight: 400; line-height: .9; color: #000; margin: 0; letter-spacing: 0; }
+  .dc-sub { font-family: var(--sans); font-size: 17px; font-weight: 300; color: #000; margin: 10px 0 8px; }
+  .dc-calendar { min-width: 320px; height: 700px; }
+  .dc-calendar iframe { display: block; }
+  .dc-close {
+    position: absolute; top: 12px; right: 12px; z-index: 3;
+    width: 44px; height: 44px; border: 0; border-radius: 50%; background: #fff;
+    display: grid; place-items: center; cursor: pointer;
+  }
+  .dc-close svg { width: 24px; height: 24px; stroke: #000; stroke-width: 2.2; stroke-linecap: round; fill: none; }
+  .dc-close:focus-visible { outline: 2px solid #000; outline-offset: 2px; }
+  html.dc-lock, html.dc-lock body { overflow: hidden; }
+  @media (max-width: 767px) {
+    .dc-modal { padding: 0; align-items: stretch; }
+    .dc-overlay { display: none; }
+    .dc-panel {
+      position: fixed; inset: 0; width: 100%; height: 100vh; height: 100dvh; max-height: none;
+      border-radius: 0; box-shadow: none; padding: 64px 0 0;
+    }
+    .dc-title, .dc-sub { padding: 0 16px; }
+    .dc-calendar { min-width: 0; }
+    /* Fixed to the screen, so it stays visible above the calendar while it scrolls */
+    .dc-close { position: fixed; top: 10px; right: 10px; z-index: 10002; box-shadow: 0 4px 14px rgba(0, 0, 0, .18); }
+  }
   /* Longer "Book a Free Discovery Call" label: keep the desktop header on one row */
   @media (min-width: 1025px) and (max-width: 1320px) {
     .header-inner { gap: 18px; }
@@ -721,6 +756,18 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 15l7-7 7 7"/></svg>
 </a>
 
+<div class="dc-modal" id="dc-modal" role="dialog" aria-modal="true" aria-labelledby="dc-title" aria-hidden="true">
+  <div class="dc-overlay" data-dc-close></div>
+  <div class="dc-panel">
+    <button class="dc-close" type="button" aria-label="Close" data-dc-close>
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 5l14 14M19 5L5 19"/></svg>
+    </button>
+    <h2 class="dc-title" id="dc-title">Book Your Free Discovery Call</h2>
+    <p class="dc-sub">with our patient coordinator.</p>
+    <div class="dc-calendar" id="dc-calendar"></div>
+  </div>
+</div>
+
 <script src="/tummy-tuck/assets/main.js?v=17" defer></script>
 
 <!-- Calendly: discovery call popup (this page only) -->
@@ -738,14 +785,44 @@ if (!window.wcpsDiscoveryListener) {
 }
 </script>
 <script>
-  /* Discovery call buttons open the Calendly popup. Without the widget they fall back to the Calendly page. */
-  document.querySelectorAll('.js-discovery-call').forEach(function (btn) {
-    btn.addEventListener('click', function (e) {
-      if (!window.Calendly) return;
-      e.preventDefault();
-      window.Calendly.initPopupWidget({ url: 'https://calendly.com/admin-wcps/discovery-call' });
+  /* Discovery call buttons open our own popup with the Calendly inline widget.
+     If widget.js has not loaded, the links fall back to the Calendly page. */
+  (function () {
+    var URL = 'https://calendly.com/admin-wcps/discovery-call';
+    var modal = document.getElementById('dc-modal');
+    var cal = document.getElementById('dc-calendar');
+    var closeBtn = modal.querySelector('.dc-close');
+    var built = false, lastFocus = null;
+
+    function open(trigger) {
+      lastFocus = trigger || document.activeElement;
+      if (!built) {
+        window.Calendly.initInlineWidget({ url: URL, parentElement: cal });
+        built = true;
+      }
+      modal.classList.add('is-open');
+      modal.setAttribute('aria-hidden', 'false');
+      document.documentElement.classList.add('dc-lock');
+      closeBtn.focus({ preventScroll: true });
+    }
+    function close() {
+      if (!modal.classList.contains('is-open')) return;
+      modal.classList.remove('is-open');
+      modal.setAttribute('aria-hidden', 'true');
+      document.documentElement.classList.remove('dc-lock');
+      if (lastFocus && lastFocus.focus) lastFocus.focus({ preventScroll: true });
+    }
+
+    document.querySelectorAll('.js-discovery-call').forEach(function (btn) {
+      btn.addEventListener('click', function (e) {
+        if (!window.Calendly || !window.Calendly.initInlineWidget) return;
+        e.preventDefault();
+        open(btn);
+      });
     });
-  });
+    modal.querySelectorAll('[data-dc-close]').forEach(function (el) { el.addEventListener('click', close); });
+    document.addEventListener('keydown', function (e) { if (e.key === 'Escape') close(); });
+  })();
 </script>
 </body>
 </html>
