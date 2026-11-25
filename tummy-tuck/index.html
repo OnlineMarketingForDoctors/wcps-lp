@@ -19,6 +19,33 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400..700;1,6..96,400..600&family=Hanken+Grotesk:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <link rel="preload" as="image" href="/tummy-tuck/assets/video/hero-poster.webp">
 <link rel="stylesheet" href="/tummy-tuck/assets/styles.css?v=19">
+<link href="https://assets.calendly.com/assets/external/widget.css" rel="stylesheet">
+<style>
+  /* Fixed Contact Us tab: scrolls to the enquiry form. Sits under the header,
+     back-to-top button and the Calendly popup (z-index 9999+). */
+  .contact-tab {
+    position: fixed; right: 0; top: 50%; z-index: 80;
+    transform: translateY(-50%) rotate(180deg); writing-mode: vertical-rl;
+    padding: 18px 11px; border-radius: 0 14px 14px 0;
+    background: var(--blue); color: #fff; text-decoration: none;
+    font-weight: 800; font-size: .78rem; letter-spacing: .1em; text-transform: uppercase;
+    box-shadow: -8px 10px 24px -12px rgba(10, 39, 72, .6);
+    transition: background-color .2s, padding .2s;
+  }
+  .contact-tab:hover { background: var(--blue-deep); padding-right: 15px; }
+  .contact-tab:focus-visible { outline-color: #fff; outline-offset: -5px; }
+  @media (max-width: 720px) { .contact-tab { padding: 14px 9px; font-size: .7rem; } }
+  /* Longer "Book a Free Discovery Call" label: keep the desktop header on one row */
+  @media (min-width: 1025px) and (max-width: 1320px) {
+    .header-inner { gap: 18px; }
+    .main-nav ul { gap: 18px; }
+    .main-nav ul a { font-size: .74rem; }
+    .header-cta { padding: 12px 16px; font-size: .74rem; }
+  }
+  @media (max-width: 400px) {
+    .header-mobile-cta { padding: 11px 13px; font-size: .68rem; letter-spacing: .04em; }
+  }
+</style>
 </head>
 <body>
 <!-- Google Tag Manager (noscript) -->
@@ -34,7 +61,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <a class="brand" href="#top" aria-label="West Coast Plastic Surgery home">
       <img src="/tummy-tuck/assets/logos/wcps-logo-transparent.webp" alt="West Coast Plastic Surgery" width="1200" height="750">
     </a>
-    <a class="btn btn-solid header-mobile-cta" href="#book">Book a consultation</a>
+    <a class="btn btn-solid header-mobile-cta js-discovery-call" href="https://calendly.com/admin-wcps/discovery-call">Book a Free Discovery Call</a>
 
     <nav class="main-nav" id="main-nav" aria-label="Page sections">
       <ul>
@@ -45,7 +72,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         <li><a href="#journey">Journey</a></li>
         <li><a href="#faq">FAQ</a></li>
       </ul>
-      <a class="btn btn-solid nav-mobile-cta" href="#book">Book a consultation</a>
+      <a class="btn btn-solid nav-mobile-cta js-discovery-call" href="https://calendly.com/admin-wcps/discovery-call">Book a Free Discovery Call</a>
       <a class="nav-mobile-phone" href="tel:0862303041">Call 08 6230 3041</a>
     </nav>
 
@@ -53,7 +80,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       <span class="header-phone-label">CALL US NOW</span>
       <span class="header-phone-number">08 6230 3041</span>
     </a>
-    <a class="btn btn-solid header-cta" href="#book">Book a consultation</a>
+    <a class="btn btn-solid header-cta js-discovery-call" href="https://calendly.com/admin-wcps/discovery-call">Book a Free Discovery Call</a>
 
     <div class="header-mobile-actions">
       <a class="icon-btn" href="tel:0862303041" aria-label="Call 08 6230 3041">
@@ -84,7 +111,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         <li>Personal aftercare until you are fully healed</li>
       </ul>
       <div class="hero-actions">
-        <a class="btn btn-solid btn-lg" href="#book">Book a consultation</a>
+        <a class="btn btn-solid btn-lg js-discovery-call" href="https://calendly.com/admin-wcps/discovery-call">Book a Free Discovery Call</a>
         <a class="text-link" href="#results">Before &amp; After</a>
       </div>
     </div>
@@ -239,7 +266,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       </ul>
       <div class="concern-result" aria-live="polite">
         <p id="concern-msg">Most people who choose a tummy tuck recognise at least two of these.</p>
-        <a class="btn btn-solid" href="#book">Talk to Dr Khan</a>
+        <a class="btn btn-solid js-discovery-call" href="https://calendly.com/admin-wcps/discovery-call">Book a Free Discovery Call</a>
       </div>
     </div>
   </div>
@@ -372,7 +399,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       </dl>
       <p class="fine-print">Surgical prices shown are Dr Khan’s surgeon fee only. Your full quote, including any other fees, will be calculated and discussed with you during your consultation with Dr Khan.</p>
       <p class="fine-print">*A $150 deposit is required at the time of booking to secure the appointment. On the day of the consultation, we can process the Medicare claim on your behalf, with the current Medicare rebate being $88.40.</p>
-      <a class="btn btn-solid" href="#book">Request your quote</a>
+      <a class="btn btn-solid js-discovery-call" href="https://calendly.com/admin-wcps/discovery-call">Book a Free Discovery Call</a>
     </div>
   </div>
 </section>
@@ -688,10 +715,37 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   </div>
 </footer>
 
+<a class="contact-tab" href="#book">Contact Us</a>
+
 <a class="to-top" href="#top" aria-label="Back to top">
   <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 15l7-7 7 7"/></svg>
 </a>
 
 <script src="/tummy-tuck/assets/main.js?v=17" defer></script>
+
+<!-- Calendly: discovery call popup (this page only) -->
+<script src="https://assets.calendly.com/assets/external/widget.js" type="text/javascript" async></script>
+<script>
+if (!window.wcpsDiscoveryListener) {
+  window.wcpsDiscoveryListener = true;
+  window.addEventListener("message", function (e) {
+    if (e.origin !== "https://calendly.com") return;
+    if (e.data && e.data.event === "calendly.event_scheduled") {
+      window.dataLayer = window.dataLayer || [];
+      window.dataLayer.push({ event: "discovery_call_booked" });
+    }
+  });
+}
+</script>
+<script>
+  /* Discovery call buttons open the Calendly popup. Without the widget they fall back to the Calendly page. */
+  document.querySelectorAll('.js-discovery-call').forEach(function (btn) {
+    btn.addEventListener('click', function (e) {
+      if (!window.Calendly) return;
+      e.preventDefault();
+      window.Calendly.initPopupWidget({ url: 'https://calendly.com/admin-wcps/discovery-call' });
+    });
+  });
+</script>
 </body>
 </html>
